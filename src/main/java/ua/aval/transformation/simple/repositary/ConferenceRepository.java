@@ -1,42 +1,23 @@
 package ua.aval.transformation.simple.repositary;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ua.aval.transformation.simple.model.Conference;
 
-import java.util.Optional;
+import java.util.List;
 
-public interface ConferenceRepository extends CrudRepository<Conference, Long> {
 
-    @Override
-    <S extends Conference> S save(S s);
+public interface ConferenceRepository extends JpaRepository<Conference, Long> {
 
-    @Override
-    <S extends Conference> Iterable<S> saveAll(Iterable<S> iterable);
 
-    @Override
-    Optional<Conference> findById(Long aLong);
+    boolean existsByNameConf(Conference conf);
 
-    @Override
-    boolean existsById(Long aLong);
+    boolean existsByDateConf(Conference conf);
 
-    @Override
-    Iterable<Conference> findAll();
+    List<Conference> queryById(Conference conf);
 
-    @Override
-    Iterable<Conference> findAllById(Iterable<Long> iterable);
+    List<Conference> findAll();
 
-    @Override
-    long count();
+    Conference findFirstByDateConfOrNameConf(String date, String name);
 
-    @Override
-    void deleteById(Long aLong);
-
-    @Override
-    void delete(Conference conference);
-
-    @Override
-    void deleteAll(Iterable<? extends Conference> iterable);
-
-    @Override
-    void deleteAll();
+    int countByDateConfOrNameConf(String date, String name);
 }

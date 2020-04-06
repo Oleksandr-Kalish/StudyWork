@@ -1,34 +1,34 @@
 package ua.aval.transformation.simple.rest;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import ua.aval.transformation.simple.model.Conference;
-import ua.aval.transformation.simple.model.Report;
-import ua.aval.transformation.simple.repositary.JdbcConferenceRepository;
+import ua.aval.transformation.simple.service.ConferenceService;
 
 import java.util.List;
 
-@org.springframework.web.bind.annotation.RestController
+@RestController
+@RequiredArgsConstructor
 public class ConferenceController {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    @Autowired
-    JdbcConferenceRepository repo;
+    private ConferenceService conferenceService;
 
 
     @PostMapping("/conferences")
-    public Conference newConference() {
-
-        return null;
+    public Conference newConference(@RequestBody Conference conference) {
+        return conferenceService.addConference(conference);
     }
 
     @GetMapping("/conferences")
     public List<Conference> getConference() {
-        return   repo.findAll();
+        return conferenceService.getAll();
     }
+
+    @PutMapping("/conferences/{conference_id}")
+    public void editConference(@RequestBody Conference conference,
+                               @PathVariable("conference_id") Long id) {
+        conferenceService.editConference(id, conference);
+    }
+
 }

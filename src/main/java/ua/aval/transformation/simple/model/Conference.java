@@ -4,8 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
 
 @Entity
 @Data
@@ -18,20 +18,14 @@ public class Conference {
     @NotBlank
     private String nameConf;
 
-    @Max(100)
-    @NotBlank
+    @Min(100)
     private Long memberCount;
 
     @NotBlank
     private String theme;
 
     @NotBlank
-    private Date dateConf;
+    private String dateConf;
 
-    public Conference(@NotBlank String nameConf, @Max(100) @NotBlank Long memberCount, @NotBlank String theme, @NotBlank Date dateConf) {
-        this.nameConf = nameConf;
-        this.memberCount = memberCount;
-        this.theme = theme;
-        this.dateConf = dateConf;
-    }
+
 }

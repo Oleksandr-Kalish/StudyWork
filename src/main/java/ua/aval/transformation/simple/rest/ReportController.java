@@ -1,39 +1,30 @@
 package ua.aval.transformation.simple.rest;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import ua.aval.transformation.simple.model.Conference;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import ua.aval.transformation.simple.model.Report;
-import ua.aval.transformation.simple.repositary.JdbcConferenceRepository;
+import ua.aval.transformation.simple.service.ReportService;
 
+import javax.validation.Valid;
 import java.util.List;
 
-@org.springframework.web.bind.annotation.RestController
+@RestController
+@RequiredArgsConstructor
 public class ReportController {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    @Autowired
-    JdbcConferenceRepository repo;
-
-    @PutMapping("/conferences")
-    public void editConference() {
-
-    }
+    private ReportService reportService;
 
     @PostMapping("/conferences/{conference_id}/talks")
-    public void addReport( @PathVariable("conference_id") Long id) {
+    public Report addReport( @RequestBody Report report,
+                            @PathVariable("conference_id") Long id) {
 
+        return reportService.addReportToConference(id, report);
     }
 
     @GetMapping("/conferences/{conference_id}/talks")
-    public Report getReport( @PathVariable("conference_id") Long id) {
+    public List<Report> getReport(@PathVariable("conference_id") Long id) {
 
-        return null;
+        return reportService.getReports(id);
     }
 }
