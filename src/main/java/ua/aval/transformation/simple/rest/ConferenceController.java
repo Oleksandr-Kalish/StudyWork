@@ -22,6 +22,7 @@ public class ConferenceController {
 
     @GetMapping("/conferences")
     public List<Conference> getConference() {
+        System.out.println("SDFG"+conferenceService.toString());
         return conferenceService.getAll();
     }
 

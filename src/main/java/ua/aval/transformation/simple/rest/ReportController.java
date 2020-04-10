@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReportController {
 
-    private ReportService reportService;
+    private final ReportService reportService;
 
     @PostMapping("/conferences/{conference_id}/talks")
     public Report addReport( @RequestBody Report report,

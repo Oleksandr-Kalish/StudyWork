@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -20,9 +18,9 @@ public class Report {
     private String description;
     @NotBlank
     private String author;
-
+    @NotBlank
     private Long idConference;
-    @NotEmpty
+    @NotBlank
     @Enumerated(EnumType.STRING)
     private ReportType reportType;
 
